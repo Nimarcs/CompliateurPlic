@@ -1,0 +1,6 @@
+programme test {
+    entier k ;
+    k := 6 ;
+    ecrire k ;
+    ecrire 12 ;
+}

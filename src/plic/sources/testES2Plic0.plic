@@ -1,0 +1,6 @@
+programme test {
+    DAB12
+    k := 6 ;
+    ecrire k ;
+    ecrire 12 ;
+}
