@@ -9,28 +9,31 @@ public class AnalyseurLexical {
 
     private Scanner sc;
 
-    private Iterator<String> curLine;
-
     public AnalyseurLexical(File fichier) throws IOException {
         sc = new Scanner(fichier, Charset.defaultCharset());
-        curLine = Collections.emptyIterator();
     }
 
     public String next(){
+        //si y'en a un suivant
+        if(sc.hasNext()){
 
-        if (curLine.hasNext()) {
-            String next = curLine.next();
-            if (next.startsWith("//")) {
-                curLine= Collections.emptyIterator();
-                return next();
-            } else return next;
-        } else {
-            if (sc.hasNextLine()) {
-                curLine = Arrays.stream(sc.nextLine().split(" ")).filter(e -> !e.equals("")).iterator();
-                return next();
+            //on le recup
+            String res = sc.next();
+
+            //si c'est un commentaire
+            if (res.startsWith("//")) {
+
+                //On passe a la ligne suivante
+                if (sc.hasNextLine()){
+                    sc.nextLine();
+                    return next(); //on renvoie le suivant
+                }
+                else return "EOF"; // si y(a pas de ligne suivante on revoie le EOF
             } else {
-                return "EOF";
+                return res;//si c'est pas un commentaire on le renvoie
             }
+        } else {
+            return "EOF";//si y'a plsu de suivant on retourne EOF
         }
     }
 

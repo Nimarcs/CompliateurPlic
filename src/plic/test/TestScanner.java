@@ -11,12 +11,12 @@ import java.util.Scanner;
 public class TestScanner {
 
     public static void main(String[] args) throws IOException {
-        Scanner sc = new Scanner(
+        /*Scanner sc = new Scanner(
                 new File("C:/Users/Elève/Desktop/cours/S4/plic/CompliateurPlic/src/plic/sources/testCommentairePlic0.plic"),
-                Charset.defaultCharset());
-        while (sc.hasNextLine()) System.out.println(sc.nextLine());
+                Charset.defaultCharset());*/
+        //while (sc.hasNextLine()) System.out.println(sc.next());
         String res = "";
-        AnalyseurLexical analyseurLexical = new AnalyseurLexical(new File("C:/Users/Elève/Desktop/cours/S4/plic/CompliateurPlic/src/plic/sources/testCommentairePlic0.plic"));
+        AnalyseurLexical analyseurLexical = new AnalyseurLexical(new File("C:/Users/Elève/Desktop/cours/S4/plic/CompliateurPlic/src/plic/sources/testPlic0.plic"));
         while (!res.equals("EOF")){
             res = analyseurLexical.next();
             System.out.println("\""+ res + "\"");
