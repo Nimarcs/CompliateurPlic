@@ -4,6 +4,7 @@ import plic.analyse.AnalyseurSyntaxique;
 import plic.analyse.ErreurSyntaxique;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.InvalidParameterException;
 
@@ -18,7 +19,12 @@ public class Plic {
     public Plic(String nomFichier) throws IOException, ErreurSyntaxique {
         File file =  new File(nomFichier);//erreur
         //creer l'analyseur syntaxique
-        AnalyseurSyntaxique analyseurSyntaxique = new AnalyseurSyntaxique(file);
+        AnalyseurSyntaxique analyseurSyntaxique;
+        try {
+            analyseurSyntaxique = new AnalyseurSyntaxique(file);
+        } catch (FileNotFoundException fnfe){
+            throw new FileNotFoundException("ERREUR:Le fichier fourni n'a pas été trouvé \n" + fnfe.getMessage());
+        }
         //on lance l'analyse
         analyseurSyntaxique.analyse();//erreur
     }
