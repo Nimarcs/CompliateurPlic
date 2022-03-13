@@ -49,6 +49,7 @@ public class AnalyseurSyntaxique {
     }
 
     private void analyseInstruction() throws ErreurSyntaxique {
+        //System.out.println(uniteCourante);
         if ( uniteCourante.equals("ecrire")) { //ES
             analyseEs();
         } else if (isIDF()){ //affectation
@@ -113,7 +114,7 @@ public class AnalyseurSyntaxique {
     }
 
     private void analyseTerminal(String terminal) throws ErreurSyntaxique {
-        if (!uniteCourante.equals(terminal)) throw new ErreurSyntaxique( terminal+ "attendu");
+        if (!uniteCourante.equals(terminal)) throw new ErreurSyntaxique( terminal+ " attendu");
         uniteCourante = analyseurLexical.next();
     }
 
