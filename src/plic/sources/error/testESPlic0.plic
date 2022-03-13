@@ -1,5 +1,0 @@
-programme test {
-    k := 6 ;
-    ecrire k ;
-    ecrire 12 ;
-}

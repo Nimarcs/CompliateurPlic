@@ -1,3 +1,4 @@
+//manque des espace ;)
 programme test {
     entier k;
     k := 6;

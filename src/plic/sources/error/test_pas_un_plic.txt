@@ -1,0 +1,12 @@
+programme test {
+    entier n ;
+    ecrire 12 ;
+    ecrire 3 ;
+    ecrire 45 ;
+    n := 3 ;
+    ecrire n ;
+    n := 4 ;
+    ecrire n ;
+    n := 5 ;
+    ecrire n ;
+}
