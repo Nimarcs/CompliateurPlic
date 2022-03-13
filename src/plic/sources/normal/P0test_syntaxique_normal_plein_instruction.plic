@@ -1,0 +1,8 @@
+programme test {
+    entier n ;
+    entier a ;
+    entier ouba ;
+    entier oJFZinZAzOgYvrDwEnTOgYEcqLFmmosEcEllQTyhWDXHUqyNedZpdMoAyLJhLexXXJcZsLCCejsYwiUyXCgBrbzrfcbYGKQOgIOocdoIAPyOmXKXDgegAjsfEgMSpVThXmmUKrNGsZJqgdiIWEvafRvbKYicRXpPTjsZXBWZFHlWfkURXscmhvIYzhabLulAyCNOCMwaqAMzlPrsPVflvKwJgizADZSxEOFzNQVwaKXQLKabMwJYlQvgflZgaWuJfpL
+    ;
+    ecrire n ;
+}

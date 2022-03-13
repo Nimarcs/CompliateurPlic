@@ -17,7 +17,7 @@ public class Plic {
     }
 
     public Plic(String nomFichier) throws IOException, ErreurSyntaxique {
-        File file =  new File(nomFichier);//erreur
+        File file =  new File(nomFichier);
         //creer l'analyseur syntaxique
         AnalyseurSyntaxique analyseurSyntaxique;
         try {
@@ -26,7 +26,7 @@ public class Plic {
             throw new FileNotFoundException("ERREUR:Le fichier fourni n'a pas été trouvé \n" + fnfe.getMessage());
         }
         //on lance l'analyse
-        analyseurSyntaxique.analyse();//erreur
+        analyseurSyntaxique.analyse();
     }
 
 
