@@ -1,0 +1,8 @@
+//début du programme
+//erreur sur le nom du programme
+programme plic1 {
+    entier k ; entier j ;
+    k := 2 ;
+    j := k ;
+    ecrire k ;
+}

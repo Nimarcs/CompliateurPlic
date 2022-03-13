@@ -1,0 +1,23 @@
+// début du programme
+// t
+// a
+// b
+programme plic {
+    entier i ; entier j ;
+
+
+    entier k ; // ceci est un commentaire
+    k := 1 ;
+    i := // cc
+    5 ;
+    ecrire k ;
+    ecrire
+    i
+
+    ;
+
+    k := 2 ; j := 5 ; i := 4 ;
+
+}
+
+// test
