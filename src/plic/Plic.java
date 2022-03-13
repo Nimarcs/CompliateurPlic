@@ -10,8 +10,8 @@ import java.security.InvalidParameterException;
 public class Plic {
 
     public static void main(String[] args) throws IOException, ErreurSyntaxique {
-        if (args.length != 1) throw new InvalidParameterException("ERREUR:Nombre d'argument invalide");
-        if (args[0].endsWith(".plic")) throw new InvalidParameterException("ERREUR:Le fichier doit etre un .plic");
+        if (args.length != 1) throw new InvalidParameterException("Nombre d'argument invalide");
+        if (!args[0].endsWith(".plic")) throw new InvalidParameterException("Le fichier doit etre un .plic");
         new Plic(args[0]);
     }
 
