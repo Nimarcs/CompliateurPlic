@@ -35,4 +35,36 @@ public class Bloc {
         }
     }
 
+    public String toMips(){
+        StringBuilder res = new StringBuilder();
+        //Init
+        res.append("""
+                .data
+                newline: .asciiz "\\n"
+                .text
+                main:
+                #initialiser $S7 avec $sp
+                \tmove $s7,$sp
+                """);
+
+        //affectation des variables
+        res.append("#réserver la place pour "+(Math.abs(TDS.getInstance().getCptDepl())/4)+" variables\n" +
+                "\tadd $sp,$sp,"+TDS.getInstance().getCptDepl());
+
+        //les instructions
+        for (Instruction i: instructions) {
+            res.append("\n#INSTRUCTION SUIVANTE\n").append(i.toMips());
+        }
+
+        //fin
+        res.append("""
+
+                #Fin de programme
+                end:
+                \tli $v0,10
+                \tsyscall""")
+
+        return res.toString();
+    }
+
 }
