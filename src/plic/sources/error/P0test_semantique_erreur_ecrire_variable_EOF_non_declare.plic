@@ -1,4 +1,4 @@
-// début du programme
+
 programme plic {
 
     ecrire EOF ;

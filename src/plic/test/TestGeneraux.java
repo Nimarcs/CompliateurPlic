@@ -1,6 +1,8 @@
 package plic.test;
 
 import plic.analyse.AnalyseurSyntaxique;
+import plic.repint.Bloc;
+import plic.repint.TDS;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,6 +18,7 @@ public class TestGeneraux {
     private static void runDirectory(File directory) {
         System.out.println("\nExploration du dossier '" + directory + "'");
         for (File file : directory.listFiles()) {
+            TDS.resetInstance();
             if(file.isDirectory()) {
                 runDirectory(file);
             } else {
@@ -34,7 +37,8 @@ public class TestGeneraux {
         if(!(file.getName().endsWith(".plic"))) throw new InvalidParameterException("ERREUR:Le fichier doit etre un .plic");
         try {
             AnalyseurSyntaxique analyseurSyntaxique = new AnalyseurSyntaxique(file);
-            analyseurSyntaxique.analyse();
+            Bloc bloc = analyseurSyntaxique.analyse();
+            bloc.verifier();
         } catch (FileNotFoundException e) {
             throw new FileNotFoundException("ERREUR:Le fichier fourni n'a pas été trouvé \n" + e.getMessage());
         }

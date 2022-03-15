@@ -4,5 +4,6 @@ programme test {
     entier ouba ;
     entier oJFZinZAzOgYvrDwEnTOgYEcqLFmmosEcEllQTyhWDXHUqyNedZpdMoAyLJhLexXXJcZsLCCejsYwiUyXCgBrbzrfcbYGKQOgIOocdoIAPyOmXKXDgegAjsfEgMSpVThXmmUKrNGsZJqgdiIWEvafRvbKYicRXpPTjsZXBWZFHlWfkURXscmhvIYzhabLulAyCNOCMwaqAMzlPrsPVflvKwJgizADZSxEOFzNQVwaKXQLKabMwJYlQvgflZgaWuJfpL
     ;
+    entier n ;
     ecrire n ;
 }

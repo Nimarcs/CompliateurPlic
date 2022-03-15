@@ -1,9 +1,12 @@
 package plic.analyse;
 
+import plic.repint.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+
 
 public class AnalyseurSyntaxique {
 
@@ -20,59 +23,67 @@ public class AnalyseurSyntaxique {
     }
 
     /**
-     *On se contente de l'analyse syntaxique sans produire le fichier intermediaire
+     * On se contente de l'analyse syntaxique sans produire le fichier intermediaire
      */
-    public void analyse() throws ErreurSyntaxique {
+    public Bloc analyse() throws ErreurSyntaxique, DoubleDeclaration {
         //on construit la premiere unite lexicale
         uniteCourante = analyseurLexical.next();
         //analyse du texte
-        analyseProg();
+        Bloc res = analyseProg();
         if (!uniteCourante.equals("EOF")) throw new ErreurSyntaxique("EOF attendu");
+        return res;
     }
 
-    private void analyseProg() throws ErreurSyntaxique {
+    private Bloc analyseProg() throws ErreurSyntaxique, DoubleDeclaration {
         analyseTerminal("programme");
         analyseIDF();
-        analyseBloc();
+        return analyseBloc();
     }
 
-    private void analyseBloc() throws ErreurSyntaxique {
+    private Bloc analyseBloc() throws ErreurSyntaxique, DoubleDeclaration {
+        Bloc res = new Bloc();
         analyseTerminal("{");
-        while (isType()){
+        while (isType()) {
             analyseDeclaration();
         }
-        analyseInstruction();
-        while (!uniteCourante.equals("}")){
-            analyseInstruction();
+        res.ajouterInstruction(analyseInstruction());
+        while (!uniteCourante.equals("}")) {
+            res.ajouterInstruction(analyseInstruction());
         }
         analyseTerminal("}");
+        return res;
     }
 
-    private void analyseInstruction() throws ErreurSyntaxique {
+    private Instruction analyseInstruction() throws ErreurSyntaxique {
+        Instruction res;
         //System.out.println(uniteCourante);
-        if ( uniteCourante.equals("ecrire")) { //ES
-            analyseEs();
-        } else if (isIDF()){ //affectation
-            analyseAffectation();
+        if (uniteCourante.equals("ecrire")) { //ES
+            res = new Ecrire( analyseEs());
+        } else if (isIDF()) { //affectation
+            res = analyseAffectation();
         } else throw new ErreurSyntaxique("instruction invalide");
         //pas enciore si et pour
+        return res;
     }
 
-    private void analyseAffectation() throws ErreurSyntaxique {
-        analyseAcces();
+    private Affectation analyseAffectation() throws ErreurSyntaxique {
+        Affectation res;
+        Idf idf = analyseAcces();
         analyseTerminal(":=");
-        analyseExpression();
+        Expression expression = analyseExpression();
         analyseTerminal(";");
+        return new Affectation(idf, expression);
     }
 
-    private void analyseEs() throws ErreurSyntaxique {
+    private Expression analyseEs() throws ErreurSyntaxique {
         analyseTerminal("ecrire");
-        analyseExpression();
+        Expression res = analyseExpression();
         analyseTerminal(";");
+        return res;
     }
 
-    private void analyseAcces() throws ErreurSyntaxique {
-        analyseIDF();
+    private Idf analyseAcces() throws ErreurSyntaxique {
+        return new Idf(analyseIDF());
         //pas encore possible
         /*if (uniteCourante.equals("[")){
             analyseTerminal("[");
@@ -81,58 +92,67 @@ public class AnalyseurSyntaxique {
         }*/
     }
 
-    private void analyseExpression() throws ErreurSyntaxique {
-        analyseOperande();
+    private Expression analyseExpression() throws ErreurSyntaxique {
+        Expression res = analyseOperande();
         //calcul pas encore là
+        return res;
     }
 
-    private void analyseOperande() throws ErreurSyntaxique {
-        if (isCstEntiere()) analyseCstEntiere();
-        else if (isIDF()) analyseIDF();
+    private Expression analyseOperande() throws ErreurSyntaxique {
+        if (isCstEntiere()) return analyseCstEntiere();
+        else if (isIDF()) return new Idf(analyseIDF());
         else throw new ErreurSyntaxique("Operande inconnue : " + uniteCourante);
     }
 
-    private void analyseDeclaration() throws ErreurSyntaxique {
-        analyseType();
-        analyseIDF();
+    private void analyseDeclaration() throws ErreurSyntaxique, DoubleDeclaration {
+        Symbole symbole = analyseType();
+        Entree entree = new Entree(analyseIDF());
         analyseTerminal(";");
+        TDS tds = TDS.getInstance();
+        tds.ajouterVariable(entree, symbole);
     }
 
-    private void analyseType() throws ErreurSyntaxique {
+    private Symbole analyseType() throws ErreurSyntaxique {
         if (!isType()) throw new ErreurSyntaxique("Type attendu : entier");
+        Symbole res = new Symbole(uniteCourante, 1);
         uniteCourante = analyseurLexical.next();
+        return res;
     }
 
-    private void analyseIDF() throws ErreurSyntaxique {
+    private String analyseIDF() throws ErreurSyntaxique {
         if (!isIDF()) throw new ErreurSyntaxique("identificateur attendu : [A-Za-Z]");
+        String res = uniteCourante;
         uniteCourante = analyseurLexical.next();
+        return res;
     }
 
-    private void analyseCstEntiere() throws ErreurSyntaxique {
+    private Nombre analyseCstEntiere() throws ErreurSyntaxique {
         if (!isCstEntiere()) throw new ErreurSyntaxique("constante entiere attendu : [0-9]");
+        String nb = uniteCourante;
         uniteCourante = analyseurLexical.next();
+        return new Nombre(Integer.parseInt(nb));
     }
 
     private void analyseTerminal(String terminal) throws ErreurSyntaxique {
-        if (!uniteCourante.equals(terminal)) throw new ErreurSyntaxique( terminal+ " attendu");
+        if (!uniteCourante.equals(terminal)) throw new ErreurSyntaxique(terminal + " attendu");
         uniteCourante = analyseurLexical.next();
     }
 
-    private boolean isType(){
+    private boolean isType() {
         return uniteCourante.equals("entier");
     }
 
-    private boolean isIDF(){
+    private boolean isIDF() {
         if (Arrays.stream(motsClee).toList().contains(uniteCourante)) return false; //les mots clee sont exclus
         return uniteCourante.matches("[A-Za-z]+");
     }
 
-    private boolean isCstEntiere(){
+    private boolean isCstEntiere() {
         return uniteCourante.matches("[0-9]+");
     }
 
-    private boolean isOperateur(){
-        for (String s: operateurs) {
+    private boolean isOperateur() {
+        for (String s : operateurs) {
             if (s.equals(uniteCourante)) return true;
         }
         return false;
