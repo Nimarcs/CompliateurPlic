@@ -27,4 +27,13 @@ public class Nombre extends Expression{
     public void verifier() {
 
     }
+
+    /**
+     * v0 <- val
+     * @return mips
+     */
+    @Override
+    public String toMips() {
+        return "li $v0,"+getVal();
+    }
 }

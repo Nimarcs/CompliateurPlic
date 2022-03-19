@@ -1,7 +1,9 @@
 package plic.repint;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class TDS {
 
@@ -38,8 +40,13 @@ public class TDS {
     }
 
     public Symbole getSymbole(Idf idf){return map.get(new Entree(idf.getNom()));}
-
     public int getCptDepl() {
         return cptDepl;
     }
+
+    public Set<Entree> getEntrees() {return map.keySet();}
+
+    public Symbole getSymbole(Entree entree){return map.get(entree);}
+
+
 }

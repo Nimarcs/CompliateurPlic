@@ -34,8 +34,9 @@ public class Plic {
         }
         //on lance l'analyse
         Bloc bloc = analyseurSyntaxique.analyse();
-        System.out.println(bloc);
+        //System.out.println(bloc);
         bloc.verifier();
+        System.out.println(bloc.toMips());
     }
 
 

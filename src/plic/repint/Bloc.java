@@ -48,12 +48,16 @@ public class Bloc {
                 """);
 
         //affectation des variables
-        res.append("#réserver la place pour "+(Math.abs(TDS.getInstance().getCptDepl())/4)+" variables\n" +
-                "\tadd $sp,$sp,"+TDS.getInstance().getCptDepl());
+        res.append("#reserver la place pour "+(Math.abs(TDS.getInstance().getCptDepl())/4)+" variables\n" +
+                "\tadd $sp,$sp,"+TDS.getInstance().getCptDepl()).append('\n');
+        res.append("#VARIABLES DEF:\n");
+        for (Entree e:TDS.getInstance().getEntrees()) {
+            res.append("# ").append(e.getIdf()).append(" => ").append( TDS.getInstance().getSymbole(e).getDeplacement()).append('\n');
+        }
 
         //les instructions
         for (Instruction i: instructions) {
-            res.append("\n#INSTRUCTION SUIVANTE\n").append(i.toMips());
+            res.append("\n\n#INSTRUCTION SUIVANTE\n").append(i.toMips()).append("\n");
         }
 
         //fin
@@ -62,7 +66,7 @@ public class Bloc {
                 #Fin de programme
                 end:
                 \tli $v0,10
-                \tsyscall""")
+                \tsyscall""");
 
         return res.toString();
     }

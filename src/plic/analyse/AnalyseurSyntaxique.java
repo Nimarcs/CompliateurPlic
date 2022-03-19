@@ -61,7 +61,7 @@ public class AnalyseurSyntaxique {
             res = new Ecrire( analyseEs());
         } else if (isIDF()) { //affectation
             res = analyseAffectation();
-        } else throw new ErreurSyntaxique("instruction invalide");
+        } else throw new ErreurSyntaxique("instruction invalide :" + uniteCourante);
         //pas enciore si et pour
         return res;
     }

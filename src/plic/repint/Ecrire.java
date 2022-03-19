@@ -19,4 +19,22 @@ public class Ecrire extends Instruction {
     public void verifier() throws ErreurSemantique {
         expression.verifier();
     }
+
+    @Override
+    public String toMips() {
+        return "#calcul de l'expression\n" +
+                expression.toMips()+ "\n"+
+                """
+                #ecrire l'expression
+                    move $a0,$v0 	#on ecrira la valeur de l'expression
+                    li $v0, 1	#code pour ecrire
+                    syscall		#on ecrit
+                    
+                                
+                #retour a la ligne
+                li $v0, 4
+                la $a0, newline
+                syscall
+                                """;
+    }
 }

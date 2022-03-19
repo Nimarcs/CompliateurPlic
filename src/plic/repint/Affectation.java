@@ -32,4 +32,15 @@ public class Affectation extends Instruction{
         idf.verifier();
         expression.verifier();
     }
+
+    /**
+     * renvoie le code de l'affectation
+     * @return mips
+     */
+    @Override
+    public String toMips() {
+        return  "#"+idf.getNom()+" = " + expression.toString() +"\n" +
+                expression.toMips()+"\n" +//met la valeur dans $v0
+                "sw $v0," + idf.getPointeur();
+    }
 }
