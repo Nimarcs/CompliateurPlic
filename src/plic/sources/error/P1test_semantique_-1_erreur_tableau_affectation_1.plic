@@ -1,0 +1,5 @@
+programme plic {
+    entier i ; tableau [ 5 ] tab ;
+    //erreur avec le -1
+    tab [ -1 ] := 5 ;
+}

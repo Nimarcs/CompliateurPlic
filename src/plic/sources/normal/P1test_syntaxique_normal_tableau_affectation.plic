@@ -1,0 +1,6 @@
+programme plic {
+    entier i ; tableau [ 5 ] tab ;
+    tab [ 0 ] := 5 ;
+    i := tab [ 0 ] ;
+    tab [ i ] := i ;
+}
