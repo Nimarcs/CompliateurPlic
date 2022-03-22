@@ -1,6 +1,6 @@
 package plic.repint;
 
-public class Idf extends Expression{
+public class Idf extends Acces{
 
     private String nom;
 
@@ -41,7 +41,7 @@ public class Idf extends Expression{
      * revoie le pointeur vers l'idf
      * @return mips
      */
-    public String getPointeur(){
+    public String getPointeur() {
         int deplacement = TDS.getInstance().getSymbole(this).getDeplacement();
         return deplacement + "($s7)";
     }

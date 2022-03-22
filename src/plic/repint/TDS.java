@@ -30,10 +30,15 @@ public class TDS {
 
     public void ajouterVariable(Entree e, Symbole s) throws DoubleDeclaration{
         if (map.containsKey(e)) throw new DoubleDeclaration(e.getIdf()+ " deja utilisé");
+        int taille = s.getDeplacement();
         s.setDeplacement(cptDepl);
-        cptDepl-=4;
+        for (int i = 0; i < taille; i++) {
+            cptDepl-=4;
+        }
         this.map.put(e, s);
     }
+
+
 
     public boolean estDeclare(Idf idf){
         return map.containsKey(new Entree(idf.getNom()));
@@ -49,4 +54,22 @@ public class TDS {
     public Symbole getSymbole(Entree entree){return map.get(entree);}
 
 
+    public String stockerV0() {
+        int pos = cptDepl;
+        cptDepl-=4;
+        return "add $sp,$sp, -4 \nsw $v0, " +pos + "($s7)";
+    }
+
+    public String recupV0(){
+        cptDepl+=4;
+        return "lw $v0, " +cptDepl + "($s7)\nadd $sp,$sp, 4 ";
+    }
+
+    @Override
+    public String toString() {
+        return "TDS{" +
+                "map=" + map +
+                ", cptDepl=" + cptDepl +
+                '}';
+    }
 }

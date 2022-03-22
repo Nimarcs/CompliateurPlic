@@ -67,12 +67,11 @@ public class AnalyseurSyntaxique {
     }
 
     private Affectation analyseAffectation() throws ErreurSyntaxique {
-        Affectation res;
-        Idf idf = analyseAcces();
+        Acces acces = analyseAcces();
         analyseTerminal(":=");
         Expression expression = analyseExpression();
         analyseTerminal(";");
-        return new Affectation(idf, expression);
+        return new Affectation(acces, expression);
     }
 
     private Expression analyseEs() throws ErreurSyntaxique {
@@ -82,14 +81,19 @@ public class AnalyseurSyntaxique {
         return res;
     }
 
-    private Idf analyseAcces() throws ErreurSyntaxique {
-        return new Idf(analyseIDF());
-        //pas encore possible
-        /*if (uniteCourante.equals("[")){
+    private Acces analyseAcces() throws ErreurSyntaxique {
+        String nomIdf = analyseIDF();
+        Idf idf = new Idf(nomIdf);
+        if(!TDS.getInstance().estDeclare(idf)) throw new ErreurSyntaxique("Variable non déclaré");
+        if (uniteCourante.equals("[")){
             analyseTerminal("[");
-            analyseExpression();
-
-        }*/
+            Expression expression = analyseExpression();
+            analyseTerminal("]");
+            return new AccesTab(idf, expression);
+        } else {
+            if (!TDS.getInstance().getSymbole(idf).getType().equals("entier"))   throw new ErreurSyntaxique("Acces a un tableau doit etre de la forme : 'idf [ cst ]'");
+            return idf ;
+        }
     }
 
     private Expression analyseExpression() throws ErreurSyntaxique {
@@ -100,7 +104,20 @@ public class AnalyseurSyntaxique {
 
     private Expression analyseOperande() throws ErreurSyntaxique {
         if (isCstEntiere()) return analyseCstEntiere();
-        else if (isIDF()) return new Idf(analyseIDF());
+        else if (isIDF()) {
+            Idf idf = new Idf(analyseIDF());
+            System.out.println(TDS.getInstance().toString());
+            if (TDS.getInstance().estDeclare(idf)) throw new ErreurSyntaxique("la variable n'est pas déclaré : " + idf.getNom());
+            if (uniteCourante.equals("[")){
+                if (!TDS.getInstance().getSymbole(idf).getType().equals("tableau")) throw new ErreurSyntaxique(idf.getNom() + " n'est pas un tableau");
+                analyseTerminal("[");
+                Expression expre =analyseExpression();
+                analyseTerminal("]");
+                return new AccesTab(idf, expre);
+            } else {
+                return idf;
+            }
+        }
         else throw new ErreurSyntaxique("Operande inconnue : " + uniteCourante);
     }
 
@@ -113,10 +130,20 @@ public class AnalyseurSyntaxique {
     }
 
     private Symbole analyseType() throws ErreurSyntaxique {
-        if (!isType()) throw new ErreurSyntaxique("Type attendu : entier");
-        Symbole res = new Symbole(uniteCourante, 1);
-        uniteCourante = analyseurLexical.next();
-        return res;
+        if (!isType()) throw new ErreurSyntaxique("Type attendu : entier ou tableau");
+        if (uniteCourante.equals("entier")) {
+            Symbole res = new Symbole(uniteCourante, 1);
+            analyseTerminal("entier");
+            return res;
+        } else {
+            String type = uniteCourante;
+            analyseTerminal("tableau");
+            analyseTerminal("[");
+            int taille = analyseCstEntiere().getVal();
+            if (taille <= 0) throw new ErreurSyntaxique("Taille de tableau invalide : doit etre strictement positif");
+            analyseTerminal("]");
+            return new Symbole(type, taille);
+        }
     }
 
     private String analyseIDF() throws ErreurSyntaxique {
@@ -139,11 +166,11 @@ public class AnalyseurSyntaxique {
     }
 
     private boolean isType() {
-        return uniteCourante.equals("entier");
+        return uniteCourante.equals("entier") || uniteCourante.equals("tableau");
     }
 
     private boolean isIDF() {
-        if (Arrays.stream(motsClee).toList().contains(uniteCourante)) return false; //les mots clee sont exclus
+        if (List.of(motsClee).contains(uniteCourante)) return false; //les mots clee sont exclus
         return uniteCourante.matches("[A-Za-z]+");
     }
 

@@ -5,6 +5,7 @@ import plic.analyse.ErreurSyntaxique;
 import plic.repint.Bloc;
 import plic.repint.DoubleDeclaration;
 import plic.repint.ErreurSemantique;
+import plic.repint.TDS;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,7 +19,7 @@ public class Plic {
             if (args.length != 1) throw new InvalidParameterException("ERREUR:Nombre d'argument invalide");
             if (!args[0].endsWith(".plic")) throw new InvalidParameterException("ERREUR:Le fichier doit etre un .plic");
             new Plic(args[0]);
-        } catch (Exception e){
+        } catch (DoubleDeclaration | ErreurSemantique | ErreurSyntaxique | InvalidParameterException | IOException e){
             System.out.println(e.getMessage());
         }
     }

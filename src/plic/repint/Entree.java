@@ -27,5 +27,10 @@ public class Entree {
         return idf;
     }
 
-
+    @Override
+    public String toString() {
+        return "Entree{" +
+                "idf='" + idf + '\'' +
+                '}';
+    }
 }
