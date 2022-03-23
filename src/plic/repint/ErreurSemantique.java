@@ -2,6 +2,6 @@ package plic.repint;
 
 public class ErreurSemantique extends Exception{
     public ErreurSemantique(String message) {
-        super("ERREUR:"+message);
+        super("ERREUR: "+message);
     }
 }
