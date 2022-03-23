@@ -16,8 +16,8 @@ public class Plic {
 
     public static void main(String[] args) {
         try {
-            if (args.length != 1) throw new InvalidParameterException("ERREUR:Nombre d'argument invalide");
-            if (!args[0].endsWith(".plic")) throw new InvalidParameterException("ERREUR:Le fichier doit etre un .plic");
+            if (args.length != 1) throw new InvalidParameterException("ERREUR: Nombre d'argument invalide");
+            if (!args[0].endsWith(".plic")) throw new InvalidParameterException("ERREUR: Le fichier doit etre un .plic");
             new Plic(args[0]);
         } catch (DoubleDeclaration | ErreurSemantique | ErreurSyntaxique | InvalidParameterException | IOException e){
             System.out.println(e.getMessage());
@@ -31,7 +31,7 @@ public class Plic {
         try {
             analyseurSyntaxique = new AnalyseurSyntaxique(file);
         } catch (FileNotFoundException fnfe){
-            throw new FileNotFoundException("ERREUR:Le fichier fourni n'a pas été trouvé \n" + fnfe.getMessage());
+            throw new FileNotFoundException("ERREUR: Le fichier fourni n'a pas été trouvé \n" + fnfe.getMessage());
         }
         //on lance l'analyse
         Bloc bloc = analyseurSyntaxique.analyse();
