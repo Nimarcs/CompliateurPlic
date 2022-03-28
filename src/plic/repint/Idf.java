@@ -29,12 +29,30 @@ public class Idf extends Acces{
     }
 
     /**
+     * met l'adresse d'acces dans $a0
+     */
+    @Override
+    public String getAdresseAcces() {
+        int deplacement = TDS.getInstance().getSymbole(this).getDeplacement();
+        return "li $v0, " + deplacement +
+                "li $t1, -4\n" +
+                "mult $t1, $v0\n"+
+                "mflo $v0\n" +
+                "add $a0, $v0, $s7\n";
+    }
+
+    /**
      * v0 <- val de l'idf
      * @return mips
      */
     @Override
     public String toMips(){
         return "lw $v0,"+getPointeur();
+    }
+
+    @Override
+    public String getType() {
+        return TDS.getInstance().getSymbole(this).getType();
     }
 
     /**

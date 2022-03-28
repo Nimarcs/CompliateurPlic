@@ -36,4 +36,9 @@ public class Nombre extends Expression{
     public String toMips() {
         return "li $v0,"+getVal();
     }
+
+    @Override
+    public String getType() {
+        return "entier";
+    }
 }

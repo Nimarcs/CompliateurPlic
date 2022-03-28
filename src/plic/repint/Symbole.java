@@ -6,9 +6,12 @@ public class Symbole {
 
     private int deplacement;
 
-    public Symbole(String t, int depl){
+    private int taille;
+
+    public Symbole(String t, int depl, int l){
         type = t;
         deplacement = depl;
+        taille = l;
     }
 
     public String getType() {
@@ -17,6 +20,10 @@ public class Symbole {
 
     public int getDeplacement() {
         return deplacement;
+    }
+
+    public int getTaille() {
+        return taille;
     }
 
     public void setDeplacement(int deplacement){

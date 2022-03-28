@@ -17,6 +17,7 @@ public class Ecrire extends Instruction {
 
     @Override
     public void verifier() throws ErreurSemantique {
+        if (!(expression.getType().equals("entier") || expression.getType().equals("booleen")))  throw new ErreurSemantique(expression + " n'est pas un entier ou un booleen");
         expression.verifier();
     }
 

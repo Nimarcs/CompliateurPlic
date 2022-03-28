@@ -41,6 +41,7 @@ public class Bloc {
         res.append("""
                 .data
                 newline: .asciiz "\\n"
+                erreur_str: .asciiz "ERREUR: "
                 .text
                 main:
                 #initialiser $S7 avec $sp
@@ -66,7 +67,17 @@ public class Bloc {
                 #Fin de programme
                 end:
                 \tli $v0,10
-                \tsyscall""");
+                \tsyscall
+                
+                	
+                #Erreur
+                erreur:
+                	#On affiche l'erreur
+                	li $v0, 4
+                	la $a0, erreur_str
+                	syscall	
+                	
+                	b end""");
 
         return res.toString();
     }
