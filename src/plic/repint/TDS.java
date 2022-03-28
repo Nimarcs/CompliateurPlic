@@ -30,7 +30,7 @@ public class TDS {
 
     public void ajouterVariable(Entree e, Symbole s) throws DoubleDeclaration{
         if (map.containsKey(e)) throw new DoubleDeclaration(e.getIdf()+ " deja utilisé");
-        int taille = s.getDeplacement();
+        int taille = s.getTaille();
         s.setDeplacement(cptDepl);
         for (int i = 0; i < taille; i++) {
             cptDepl-=4;
@@ -57,12 +57,12 @@ public class TDS {
     public String stockerV0() {
         int pos = cptDepl;
         cptDepl-=4;
-        return "add $sp,$sp, -4 \nsw $v0, " +pos + "($s7)";
+        return "add $sp,$sp, -4 \nsw $v0, " +pos + "($s7) #Stocker dans la memoire v0";
     }
 
     public String recupV0(){
         cptDepl+=4;
-        return "lw $v0, " +cptDepl + "($s7)\nadd $sp,$sp, 4 ";
+        return "lw $v0, " +cptDepl + "($s7)\nadd $sp,$sp, 4 #Recuperer dans la memoire v0";
     }
 
     @Override

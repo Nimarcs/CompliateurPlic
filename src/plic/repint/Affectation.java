@@ -48,7 +48,7 @@ public class Affectation extends Instruction{
         res += TDS.getInstance().stockerV0()+ '\n';//on met $v0 dans la mémoire
         res += acces.getAdresseAcces() + '\n'; //on met l'adresse dans $a0
         res+=TDS.getInstance().recupV0()+ '\n';//on recupere la valeur dans la memoire dans $v0
-        res += "sw $v0, 0($a0)\n"; //adresse dans le pointeur a0 <- v0
+        res += "sw $v0, 0($a0) #on met la valeur "+ expression.toString() + " a la position " + acces.getNom() +"\n"; //adresse dans le pointeur a0 <- v0
 
         return res;
     }

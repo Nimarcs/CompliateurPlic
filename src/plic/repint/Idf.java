@@ -34,7 +34,8 @@ public class Idf extends Acces{
     @Override
     public String getAdresseAcces() {
         int deplacement = TDS.getInstance().getSymbole(this).getDeplacement();
-        return "li $v0, " + deplacement +
+        return "#On met l'adresse de " + getNom() + " dans a0\n" +
+                "li $v0, " + deplacement + '\n'+
                 "li $t1, -4\n" +
                 "mult $t1, $v0\n"+
                 "mflo $v0\n" +

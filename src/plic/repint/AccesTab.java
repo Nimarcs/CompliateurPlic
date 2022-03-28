@@ -30,7 +30,10 @@ public class AccesTab extends Acces {
 
     @Override
     public String toMips() {
-        return null;
+        return "#On recupere l'adresse \n" +
+                getAdresseAcces() + '\n'+
+                "#On met sa valeur dans v0\n" +
+                "lw $v0, 0($a0)\n";
     }
 
     /**
@@ -39,21 +42,22 @@ public class AccesTab extends Acces {
     @Override
     public String getAdresseAcces() {
         return "#On met l'adresse memoire dans a0\n#On met le decalage dans v0\n"+
-                expDecalage.toMips() +
+                expDecalage.toMips() + '\n' +
                 "#On verifie que ça ne sort pas du tableau\n" +
                 "li $a0, " + TDS.getInstance().getSymbole(idf).getTaille() + '\n' +
-                "blez $v0 erreur\n" +
+                "bltz $v0 erreur\n" +
                 "bge $v0,$a0, erreur\n" +
                 "#On met l'adresse dans $a0\n" +
                 "li $t1, -4\n" +
                 "mult $t1, $v0\n"+
                 "mflo $v0\n" +
+                "add $v0, $v0, " + TDS.getInstance().getSymbole(idf).getDeplacement() + '\n' +
                 "add $a0, $v0, $s7\n";
     }
 
     @Override
     public String getType() {
-        return TDS.getInstance().getSymbole(idf).getType();
+        return "entier";
     }
 
     @Override

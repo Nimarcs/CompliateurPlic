@@ -8,9 +8,9 @@ public class Symbole {
 
     private int taille;
 
-    public Symbole(String t, int depl, int l){
+    public Symbole(String t, int l){
         type = t;
-        deplacement = depl;
+        deplacement = -1;
         taille = l;
     }
 
@@ -28,5 +28,14 @@ public class Symbole {
 
     public void setDeplacement(int deplacement){
         this.deplacement=deplacement;
+    }
+
+    @Override
+    public String toString() {
+        return "Symbole{" +
+                "type='" + type + '\'' +
+                ", deplacement=" + deplacement +
+                ", taille=" + taille +
+                '}';
     }
 }
