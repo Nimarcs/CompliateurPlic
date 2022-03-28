@@ -106,8 +106,7 @@ public class AnalyseurSyntaxique {
         if (isCstEntiere()) return analyseCstEntiere();
         else if (isIDF()) {
             Idf idf = new Idf(analyseIDF());
-            System.out.println(TDS.getInstance().toString());
-            if (TDS.getInstance().estDeclare(idf)) throw new ErreurSyntaxique("la variable n'est pas déclaré : " + idf.getNom());
+            if (!TDS.getInstance().estDeclare(idf)) throw new ErreurSyntaxique("la variable n'est pas déclaré : " + idf.getNom());
             if (uniteCourante.equals("[")){
                 if (!TDS.getInstance().getSymbole(idf).getType().equals("tableau")) throw new ErreurSyntaxique(idf.getNom() + " n'est pas un tableau");
                 analyseTerminal("[");

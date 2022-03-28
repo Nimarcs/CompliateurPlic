@@ -1,4 +1,0 @@
-programme plic {
-    entier i ; tableau [ 5 ] tab ; tableau [ i ] t ;
-    ecrire i ;
-}
