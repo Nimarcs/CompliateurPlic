@@ -1,20 +1,9 @@
 package plic.repint;
 
-public class Somme extends Expression {
-
-    private Expression operande1, operande2;
+public class Somme extends CalculEntier {
 
     public Somme(Expression op1, Expression op2) {
-        operande1= op1;
-        operande2= op2;
-    }
-
-    @Override
-    public void verifier() throws ErreurSemantique {
-        if (!operande1.getType().equals("entier")) throw new ErreurSemantique("operande 1 ne pas pas etre sommée, n'est pas de type entier ("+ operande1+')');
-        if (!operande2.getType().equals("entier")) throw new ErreurSemantique("operande 2 ne pas pas etre sommée, n'est pas de type entier ("+ operande2+')');
-        operande1.verifier();
-        operande2.verifier();
+        super(op1, op2);
     }
 
     @Override
@@ -27,8 +16,4 @@ public class Somme extends Expression {
                 "add $v0, $v0, $v1 #Somme terminee\n";
     }
 
-    @Override
-    public String getType() {
-        return "entier";
-    }
 }

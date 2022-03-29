@@ -3,4 +3,5 @@ programme plic {
     k := 2 ;
     j := ( 30 * k ) + ( 10 - 1 ) ;
     ecrire j ;
+    ecrire ( j * 0 ) - 1 ;
 }
