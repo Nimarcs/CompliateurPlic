@@ -1,10 +1,10 @@
 package plic.repint;
 
-public class Egal extends Expression {
+public class SuperieurA extends Expression {
 
     private Expression operande1, operande2;
 
-    public Egal(Expression op1, Expression op2) {
+    public SuperieurA(Expression op1, Expression op2) {
         operande1= op1;
         operande2= op2;
     }
@@ -20,12 +20,12 @@ public class Egal extends Expression {
     @Override
     public String toMips() {
         int etiquette = GenerateurEtiquette.getInstance().getEtiquette();
-        return "#On calcule " + operande1.toString() + " = " + operande2.toString() + '\n' +
+        return "#On calcule " + operande1.toString() + " > " + operande2.toString() + '\n' +
                 operande1.toMips() + "\n" +
                 TDS.getInstance().stockerV0() +  "\n"+
                 operande2.toMips() + "\nmove $v1, $v0\n" +
                 TDS.getInstance().recupV0() + '\n' +
-                "beq $v0, $v1, boolVrai" + etiquette + '\n'+
+                "bgt $v0, $v1, boolVrai" + etiquette + '\n'+
                 "b boolFaux" + etiquette + '\n' +
                 "boolVrai" + etiquette + ":\n" +
                 "\tli $v0, 1\n" +
@@ -34,7 +34,7 @@ public class Egal extends Expression {
                 "\tli $v0, 0\n" +
                 "\tb endBool"+etiquette+"\n" +
                 "endBool" + etiquette + ":\n" +
-                "#= terminee\n";
+                "#> terminee\n";
     }
 
     @Override

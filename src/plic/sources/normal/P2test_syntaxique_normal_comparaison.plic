@@ -1,0 +1,35 @@
+// le resultat attendu est noté après les 9
+programme plic {
+    entier k ; entier j ;
+    k := 2 ;
+    //=
+    ecrire k = 2 ;
+    ecrire k = 5 ;
+    ecrire 910 ;
+    //>
+    ecrire k > 2 ;
+    ecrire k > 5 ;
+    ecrire k > 1 ;
+    ecrire 9001 ;
+    //<
+    ecrire k < 2 ;
+    ecrire k < 5 ;
+    ecrire k < 1 ;
+    ecrire 9010 ;
+    //#
+    ecrire k # 2 ;
+    ecrire k # 5 ;
+    ecrire k # 1 ;
+    ecrire 9011 ;
+    //<=
+    ecrire k <= 2 ;
+    ecrire k <= 5 ;
+    ecrire k <= 1 ;
+    ecrire 9110 ;
+    //>=
+    ecrire k >= 2 ;
+    ecrire k >= 5 ;
+    ecrire k >= 1 ;
+    ecrire 9101 ;
+}
+

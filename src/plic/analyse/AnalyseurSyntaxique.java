@@ -118,8 +118,26 @@ public class AnalyseurSyntaxique {
                 case "et":
                     res = new EtBooleen(operande1, operande2);
                     break;
+                case "ou":
+                    res = new OuBooleen(operande1, operande2);
+                    break;
+                case "<":
+                    res = new InferieurA(operande1, operande2);
+                    break;
+                case ">":
+                    res = new SuperieurA(operande1, operande2);
+                    break;
                 case "=":
                     res = new Egal(operande1, operande2);
+                    break;
+                case "#":
+                    res = new Inegal(operande1, operande2);
+                    break;
+                case "<=":
+                    res = new InferieurOuEgalA(operande1, operande2);
+                    break;
+                case ">=":
+                    res = new SuperieurOuEgalA(operande1, operande2);
                     break;
                 default:
                     throw new IllegalStateException("operateur non pris en compte");
@@ -213,7 +231,13 @@ public class AnalyseurSyntaxique {
         if (!isCstEntiere()) throw new ErreurSyntaxique("constante entiere attendu : [0-9]");
         String nb = uniteCourante;
         uniteCourante = analyseurLexical.next();
-        return new Nombre(Integer.parseInt(nb));
+        int res;
+        try {
+            res = Integer.parseInt(nb);
+        } catch (NumberFormatException e){
+            throw new ErreurSyntaxique("le nombre est trop grand");
+        }
+        return new Nombre(res);
     }
 
     private void analyseTerminal(String terminal) throws ErreurSyntaxique {
