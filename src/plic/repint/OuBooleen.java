@@ -1,20 +1,9 @@
 package plic.repint;
 
-public class OuBooleen extends Expression {
-
-    private Expression operande1, operande2;
+public class OuBooleen extends CalculBooleen {
 
     public OuBooleen(Expression op1, Expression op2) {
-        operande1= op1;
-        operande2= op2;
-    }
-
-    @Override
-    public void verifier() throws ErreurSemantique {
-        if (!operande1.getType().equals("booleen")) throw new ErreurSemantique("operande 1 ne peut pas faire parti d'un calcul booleen, n'est pas de type booleen ("+ operande1+')');
-        if (!operande2.getType().equals("booleen")) throw new ErreurSemantique("operande 2 ne peut pas faire parti d'un calcul booleen, n'est pas de type booleen ("+ operande2+')');
-        operande1.verifier();
-        operande2.verifier();
+        super(op1, op2);
     }
 
     @Override
@@ -39,8 +28,4 @@ public class OuBooleen extends Expression {
                 "#ou terminee\n";
     }
 
-    @Override
-    public String getType() {
-        return "booleen";
-    }
 }
