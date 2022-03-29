@@ -5,7 +5,6 @@ import plic.analyse.ErreurSyntaxique;
 import plic.repint.Bloc;
 import plic.repint.DoubleDeclaration;
 import plic.repint.ErreurSemantique;
-import plic.repint.TDS;
 
 import java.io.File;
 import java.io.FileNotFoundException;

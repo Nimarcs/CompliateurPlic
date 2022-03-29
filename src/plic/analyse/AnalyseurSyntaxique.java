@@ -14,7 +14,7 @@ public class AnalyseurSyntaxique {
 
     private String uniteCourante;
 
-    private static final String[] operateurs = {};
+    private static final String[] operateurs = {"+",  "-", "*", "et", "ou", "<", ">",  "=", "#", "<=", ">="};
 
     private static final String[] motsClee = {"programme", "entier", "ecrire", "tableau", "lire", "si", "alors", "pour", "dans", "repeter", "tantque", "et", "ou", "non"};
 
@@ -96,15 +96,58 @@ public class AnalyseurSyntaxique {
         }
     }
 
+    /**
+     * OPERANDE OPERATEUR OPERANDE | OPERANDE
+     */
     private Expression analyseExpression() throws ErreurSyntaxique {
-        Expression res = analyseOperande();
-        //calcul pas encore là
+        Expression res;
+        Expression operande1 = analyseOperande();
+        if (isOperateur()){
+            String op = analyseOperateur();
+            Expression operande2 = analyseOperande();
+            switch (op){
+                case "+":
+                    res = new Somme(operande1, operande2);
+                    break;
+                case "-":
+                    res = new Soustraction(operande1, operande2);
+                    break;
+                case "*":
+                    res = new Multiplication(operande1, operande2);
+                    break;
+                case "et":
+                    res = new EtBooleen(operande1, operande2);
+                    break;
+                case "=":
+                    res = new Egal(operande1, operande2);
+                    break;
+                default:
+                    throw new IllegalStateException("operateur non pris en compte");
+            }
+        } else {
+            res = operande1;
+        }
         return res;
     }
 
+    /**
+        + | - | * | et | ou | < | > | = | # | <= | >=
+        '#' == '!='
+     */
+    private String analyseOperateur() throws ErreurSyntaxique {
+        if (!isOperateur()) throw new ErreurSyntaxique("operateur attendu : + | - | * | et | ou | < | > | = | # | <= | >=");
+        String res = uniteCourante;
+        uniteCourante = analyseurLexical.next();
+        return res;
+    }
+
+    /**
+     * cstEntiere | ACCES | - ( EXPRESSION )
+     * | non EXPRESSION | ( EXPRESSION )
+     */
     private Expression analyseOperande() throws ErreurSyntaxique {
-        if (isCstEntiere()) return analyseCstEntiere();
-        else if (isIDF()) {
+        if (isCstEntiere()) return analyseCstEntiere();//cstEntiere
+        else if (isIDF()) { //acces
             Idf idf = new Idf(analyseIDF());
             if (!TDS.getInstance().estDeclare(idf)) throw new ErreurSyntaxique("la variable n'est pas déclaré : " + idf.getNom());
             if (uniteCourante.equals("[")){
@@ -116,6 +159,20 @@ public class AnalyseurSyntaxique {
             } else {
                 return idf;
             }
+        } else if (uniteCourante.equals("-")) { // - ( EXPRESSION )
+            analyseTerminal("-");
+            analyseTerminal("(");
+            Expression res = analyseExpression();
+            analyseTerminal(")");
+            return res;
+        } else if (uniteCourante.equals("non")){ // non EXPRESSION
+            analyseTerminal("non");
+            return analyseExpression();
+        } else if (uniteCourante.equals("(")){ //( EXPRESSION )
+            analyseTerminal("(");
+            Expression res = analyseExpression();
+            analyseTerminal(")");
+            return res;
         }
         else throw new ErreurSyntaxique("Operande inconnue : " + uniteCourante);
     }

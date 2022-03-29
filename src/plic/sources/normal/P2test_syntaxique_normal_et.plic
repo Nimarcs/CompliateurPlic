@@ -1,0 +1,9 @@
+programme plic {
+    entier k ; entier j ;
+    k := 2 ;
+    ecrire k = 2 ;
+    ecrire k = 5 ;
+    ecrire ( 2 = 2 ) et ( 2 = k ) ;
+    ecrire ( 2 = 2 ) et ( 3 = k ) ;
+    ecrire ( 2 = 4 ) et ( 2 = k ) ;
+}
