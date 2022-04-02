@@ -1,0 +1,8 @@
+programme plic {
+    entier i ; entier j ; entier k ; tableau [ 3 ] t ;
+    i := 2 ;
+    t [ 1 ] := 6 ;
+    j := i - 8 ;
+    k := ( j + 3 ) - t [ i - 1 ] ;
+    ecrire k ; //-9
+}

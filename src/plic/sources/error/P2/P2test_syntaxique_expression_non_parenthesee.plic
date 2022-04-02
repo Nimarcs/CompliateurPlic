@@ -1,0 +1,4 @@
+programme plic {
+    entier z ;
+    z := 1 + 3 + 6 ;
+}

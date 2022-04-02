@@ -2,7 +2,7 @@ package plic.test;
 
 import plic.analyse.AnalyseurSyntaxique;
 import plic.repint.Bloc;
-import plic.repint.TDS;
+import plic.repint.declaration.TDS;
 
 import java.io.File;
 import java.io.FileNotFoundException;

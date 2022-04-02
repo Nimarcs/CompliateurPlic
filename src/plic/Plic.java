@@ -3,8 +3,8 @@ package plic;
 import plic.analyse.AnalyseurSyntaxique;
 import plic.analyse.ErreurSyntaxique;
 import plic.repint.Bloc;
-import plic.repint.DoubleDeclaration;
-import plic.repint.ErreurSemantique;
+import plic.repint.exceptions.DoubleDeclaration;
+import plic.repint.exceptions.ErreurSemantique;
 
 import java.io.File;
 import java.io.FileNotFoundException;

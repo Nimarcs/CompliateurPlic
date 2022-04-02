@@ -1,5 +1,10 @@
 package plic.repint;
 
+import plic.repint.declaration.Entree;
+import plic.repint.declaration.TDS;
+import plic.repint.exceptions.ErreurSemantique;
+import plic.repint.instruction.Instruction;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +34,7 @@ public class Bloc {
         return res.toString();
     }
 
-    public void verifier() throws ErreurSemantique{
+    public void verifier() throws ErreurSemantique {
         for (Instruction i:instructions) {
             i.verifier();
         }

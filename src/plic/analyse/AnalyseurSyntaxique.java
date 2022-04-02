@@ -1,10 +1,27 @@
 package plic.analyse;
 
 import plic.repint.*;
+import plic.repint.declaration.Entree;
+import plic.repint.declaration.Symbole;
+import plic.repint.declaration.TDS;
+import plic.repint.exceptions.DoubleDeclaration;
+import plic.repint.expression.Expression;
+import plic.repint.expression.Nombre;
+import plic.repint.expression.acces.Acces;
+import plic.repint.expression.acces.AccesTab;
+import plic.repint.expression.acces.Idf;
+import plic.repint.expression.calculbooleen.EtBooleen;
+import plic.repint.expression.calculbooleen.OuBooleen;
+import plic.repint.expression.calculentier.Multiplication;
+import plic.repint.expression.calculentier.Somme;
+import plic.repint.expression.calculentier.Soustraction;
+import plic.repint.expression.comparateur.*;
+import plic.repint.instruction.Affectation;
+import plic.repint.instruction.Ecrire;
+import plic.repint.instruction.Instruction;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -182,9 +199,12 @@ public class AnalyseurSyntaxique {
             analyseTerminal("(");
             Expression res = analyseExpression();
             analyseTerminal(")");
+            //return new OpposeeEntier(res);
             return res;
         } else if (uniteCourante.equals("non")){ // non EXPRESSION
             analyseTerminal("non");
+
+            //return new NonBooleen(analyseExpression());
             return analyseExpression();
         } else if (uniteCourante.equals("(")){ //( EXPRESSION )
             analyseTerminal("(");
