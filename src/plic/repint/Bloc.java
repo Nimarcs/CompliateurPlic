@@ -45,7 +45,7 @@ public class Bloc {
         //Init
         res.append("""
                 .data
-                newline: .asciiz "\\n"
+                newline: .asciiz "\\r\\n"
                 erreur_str: .asciiz "ERREUR: "
                 .text
                 main:
