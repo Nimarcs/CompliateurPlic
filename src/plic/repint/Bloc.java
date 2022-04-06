@@ -40,6 +40,17 @@ public class Bloc {
         }
     }
 
+    public String toMipsSansIntroEtOutro(){
+        StringBuilder res = new StringBuilder();
+
+        //les instructions
+        for (Instruction i: instructions) {
+            res.append("\n\n#INSTRUCTION SUIVANTE\n").append(i.toMips()).append("\n");
+        }
+
+        return res.toString();
+    }
+
     public String toMips(){
         StringBuilder res = new StringBuilder();
         //Init

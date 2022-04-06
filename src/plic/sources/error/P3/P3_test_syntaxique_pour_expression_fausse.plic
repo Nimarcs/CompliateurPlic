@@ -1,0 +1,4 @@
+programme plic {
+    entier i ;
+    pour i dans -1 .. 3 repeter { ecrire 13 ; }
+}

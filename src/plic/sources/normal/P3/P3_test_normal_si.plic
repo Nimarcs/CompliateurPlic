@@ -1,0 +1,4 @@
+programme plic {
+    si ( 12 = 12 ) alors { ecrire 13 ; } sinon { ecrire 2 ; }
+    si ( 12 <= 1 ) alors { ecrire 5 ; } sinon { ecrire 4 ; }
+}

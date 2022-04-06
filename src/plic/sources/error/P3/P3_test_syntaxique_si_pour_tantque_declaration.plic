@@ -1,0 +1,7 @@
+programme plic {
+    entier i ;
+    si ( 12 > 3 ) alors { ecrire 12 ; } sinon { ecrire 13 ; }
+    pour i dans 0 .. 3 repeter { ecrire i ; }
+    tantque ( 2 > 0 ) repeter { ecrire 5 ; }
+    entier d ;
+}

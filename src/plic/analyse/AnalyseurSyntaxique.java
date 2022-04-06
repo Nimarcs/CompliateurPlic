@@ -17,8 +17,11 @@ import plic.repint.expression.calculentier.Somme;
 import plic.repint.expression.calculentier.Soustraction;
 import plic.repint.expression.comparateur.*;
 import plic.repint.instruction.Affectation;
+import plic.repint.instruction.Condition;
 import plic.repint.instruction.Ecrire;
 import plic.repint.instruction.Instruction;
+import plic.repint.instruction.iteration.Pour;
+import plic.repint.instruction.iteration.Tantque;
 
 import java.io.File;
 import java.io.IOException;
@@ -78,9 +81,63 @@ public class AnalyseurSyntaxique {
             res = new Ecrire( analyseEs());
         } else if (isIDF()) { //affectation
             res = analyseAffectation();
+        } else if (uniteCourante.equals("si")){
+            res =  analyseCondition();
+        } else if (uniteCourante.equals("tantque")) {
+            res =  analyseIterationTantque();
+        } else if (uniteCourante.equals("pour")){
+            res =  analyseIterationPour();
         } else throw new ErreurSyntaxique("instruction invalide :" + uniteCourante);
         //pas enciore si et pour
         return res;
+    }
+
+    private Instruction analyseIterationPour() throws ErreurSyntaxique {
+        analyseTerminal("pour");
+        Idf idf =new Idf( analyseIDF());
+        analyseTerminal("dans");
+        Expression expression1 = analyseExpression();
+        analyseTerminal("..");
+        Expression expression2 = analyseExpression();
+        analyseTerminal("repeter");
+        analyseBlocInterne();
+        Bloc bloc = analyseBlocInterne();
+        return new Pour(idf, expression1, expression2, bloc);
+    }
+
+    private Bloc analyseBlocInterne() throws ErreurSyntaxique{
+        try {
+            return analyseBloc();
+        } catch (DoubleDeclaration ignored){
+            //declaration pas autoriser mais on teste pas
+            throw new ErreurSyntaxique("Les declaration ne sont pas autorisé dans les bloc interne");
+        }
+    }
+
+    private Instruction analyseIterationTantque() throws ErreurSyntaxique {
+        analyseTerminal("tantque");
+        analyseTerminal("(");
+        Expression expression = analyseExpression();
+        analyseTerminal(")");
+        analyseTerminal("repeter");
+        Bloc bloc = analyseBlocInterne();
+        return new Tantque(expression, bloc);
+    }
+
+
+    private Instruction analyseCondition() throws ErreurSyntaxique {
+        analyseTerminal("si");
+        analyseTerminal("(");
+        Expression expression = analyseExpression();
+        analyseTerminal(")");
+        analyseTerminal("alors");
+        Bloc bloc1 = analyseBlocInterne();
+        Bloc bloc2 = null;
+        if (uniteCourante.equals("sinon")){
+            analyseTerminal("sinon");
+            bloc2 = analyseBlocInterne();
+        }
+        return new Condition(expression, bloc1, bloc2);
     }
 
     private Affectation analyseAffectation() throws ErreurSyntaxique {

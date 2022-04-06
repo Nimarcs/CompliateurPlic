@@ -1,0 +1,4 @@
+programme plic {
+    tableau [ 2 ] i ;
+    tantque ( i ) repeter { ecrire i [ 1 ] ; }
+}
