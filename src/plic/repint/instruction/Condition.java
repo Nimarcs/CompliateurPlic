@@ -27,14 +27,16 @@ public class Condition extends Instruction{
     @Override
     public String toMips() {
         int etiquette = GenerateurEtiquette.getInstance().getEtiquette();
-        return "#début si\n" +
+        String res =
+                "#début si\n" +
                 expression.toMips() + '\n' +
                 "li $t1, 0" + '\n' +
                 "beq $v0, $t1, sinon" + etiquette + " #si " + expression + '\n' +
                 "alors" + etiquette + ":" + '\n' +
                 bloc1.toMipsSansIntroEtOutro() + '\n' + "b fsi" + etiquette + '\n' +
-                "sinon" + etiquette + ":" + '\n' +
-                bloc2.toMipsSansIntroEtOutro() + '\n' + "b fsi" + etiquette + '\n' +
-                "fsi" + etiquette + ":";
+                "sinon" + etiquette + ":" + '\n';
+        if (bloc2 != null)
+                res += bloc2.toMipsSansIntroEtOutro() + '\n' + "b fsi" + etiquette + '\n';
+        return res + "fsi" + etiquette + ":";
     }
 }

@@ -1,6 +1,7 @@
 package plic.repint.instruction.iteration;
 
 import plic.repint.Bloc;
+import plic.repint.GenerateurEtiquette;
 import plic.repint.exceptions.ErreurSemantique;
 import plic.repint.expression.Expression;
 import plic.repint.expression.acces.Idf;
@@ -32,6 +33,23 @@ public class Pour extends Iteration {
 
     @Override
     public String toMips() {
-        return null;
+        int etiquette = GenerateurEtiquette.getInstance().getEtiquette();
+        return "#début pour\n" +
+                expression1.toMips() + '\n' +
+                "sw $v0, " + idf.getPointeur() + '\n' +
+                expression2.toMips() + '\n' +
+                "lw $v1, " + idf.getPointeur() + '\n' +
+                "ble $v1, $v0, pour" + etiquette + " #pour "  +idf + " de " + expression1 + " à " + expression2 + '\n' +
+                "b fpour" + etiquette + '\n' +
+                "pour" + etiquette + ":" + '\n' +
+                bloc.toMipsSansIntroEtOutro() + '\n' + "#FIN DU POUR \n" +
+                expression2.toMips() + '\n' +
+                "lw $v1, " + idf.getPointeur() + '\n' +
+                "li $t1, 1" + '\n' +
+                "add $v1, $v1, $t1 \n" +
+                "sw $v1, " + idf.getPointeur() + '\n' +
+                "ble $v1, $v0, pour" + etiquette + '\n'+
+                "fpour" + etiquette + ":";
+
     }
 }

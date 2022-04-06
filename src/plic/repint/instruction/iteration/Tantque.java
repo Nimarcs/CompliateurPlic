@@ -1,6 +1,7 @@
 package plic.repint.instruction.iteration;
 
 import plic.repint.Bloc;
+import plic.repint.GenerateurEtiquette;
 import plic.repint.exceptions.ErreurSemantique;
 import plic.repint.expression.Expression;
 
@@ -25,6 +26,18 @@ public class Tantque extends Iteration{
 
     @Override
     public String toMips() {
-        return null;
+        int etiquette = GenerateurEtiquette.getInstance().getEtiquette();
+        return "#début tantque\n" +
+                expression.toMips() + '\n' +
+                "li $t1, 1" + '\n' +
+                "beq $v0, $t1, tantque" + etiquette + " #tantque " + expression + '\n' +
+                "b ftantque" + etiquette + '\n' +
+                "tantque" + etiquette + ":" + '\n' +
+                bloc.toMipsSansIntroEtOutro() + '\n' +
+                expression.toMips() + '\n' +
+                "li $t1, 1" + '\n' +
+                "beq $v0, $t1, tantque" + etiquette+'\n'+
+                "ftantque" + etiquette + ":";
+
     }
 }

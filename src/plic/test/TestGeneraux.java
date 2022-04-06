@@ -26,14 +26,14 @@ public class TestGeneraux {
                     runFile(file);
                     System.out.println("Exécution OK");
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    System.out.println(e.getMessage().substring(0, 8));
                 }
             }
         }
     }
 
     private static void runFile(File file) throws Exception {
-        System.out.println("run du fichier '" + file + "'");
+        System.out.print("run du fichier '" + file + "'  :  ");
         if(!(file.getName().endsWith(".plic"))) throw new InvalidParameterException("ERREUR:Le fichier doit etre un .plic");
         try {
             AnalyseurSyntaxique analyseurSyntaxique = new AnalyseurSyntaxique(file);

@@ -100,7 +100,6 @@ public class AnalyseurSyntaxique {
         analyseTerminal("..");
         Expression expression2 = analyseExpression();
         analyseTerminal("repeter");
-        analyseBlocInterne();
         Bloc bloc = analyseBlocInterne();
         return new Pour(idf, expression1, expression2, bloc);
     }
@@ -158,14 +157,12 @@ public class AnalyseurSyntaxique {
     private Acces analyseAcces() throws ErreurSyntaxique {
         String nomIdf = analyseIDF();
         Idf idf = new Idf(nomIdf);
-        if(!TDS.getInstance().estDeclare(idf)) throw new ErreurSyntaxique("Variable non déclaré");
         if (uniteCourante.equals("[")){
             analyseTerminal("[");
             Expression expression = analyseExpression();
             analyseTerminal("]");
             return new AccesTab(idf, expression);
         } else {
-            if (!TDS.getInstance().getSymbole(idf).getType().equals("entier"))   throw new ErreurSyntaxique("Acces a un tableau doit etre de la forme : 'idf [ cst ]'");
             return idf ;
         }
     }

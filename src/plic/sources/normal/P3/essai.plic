@@ -1,0 +1,16 @@
+programme essai {
+
+           entier k ; entier l ; entier i ; entier j ;
+
+           i := 57 ;  ecrire  i ;
+
+           k := i ;    l := i ;
+
+           ecrire k  ; ecrire l  ;
+
+           si ( i >= k ) alors { l := 180 ; }  sinon { l := 18 ; }  
+
+           tantque ( l > 1 ) repeter { ecrire l ; l := l - 11 ; }
+
+           pour j dans 12 .. 22 repeter { k := k + 1 ; ecrire  k  ; }
+}
