@@ -11,15 +11,14 @@ import plic.repint.expression.acces.Acces;
 import plic.repint.expression.acces.AccesTab;
 import plic.repint.expression.acces.Idf;
 import plic.repint.expression.calculbooleen.EtBooleen;
+import plic.repint.expression.calculbooleen.NonBooleen;
 import plic.repint.expression.calculbooleen.OuBooleen;
 import plic.repint.expression.calculentier.Multiplication;
+import plic.repint.expression.calculentier.OpposeeEntier;
 import plic.repint.expression.calculentier.Somme;
 import plic.repint.expression.calculentier.Soustraction;
 import plic.repint.expression.comparateur.*;
-import plic.repint.instruction.Affectation;
-import plic.repint.instruction.Condition;
-import plic.repint.instruction.Ecrire;
-import plic.repint.instruction.Instruction;
+import plic.repint.instruction.*;
 import plic.repint.instruction.iteration.Pour;
 import plic.repint.instruction.iteration.Tantque;
 
@@ -81,6 +80,8 @@ public class AnalyseurSyntaxique {
             res = new Ecrire( analyseEs());
         } else if (isIDF()) { //affectation
             res = analyseAffectation();
+        } else if (uniteCourante.equals("lire")) { //lire
+            res = analyseLire();
         } else if (uniteCourante.equals("si")){
             res =  analyseCondition();
         } else if (uniteCourante.equals("tantque")) {
@@ -89,6 +90,13 @@ public class AnalyseurSyntaxique {
             res =  analyseIterationPour();
         } else throw new ErreurSyntaxique("instruction invalide :" + uniteCourante);
         //pas enciore si et pour
+        return res;
+    }
+
+    private Instruction analyseLire() throws ErreurSyntaxique {
+        analyseTerminal("lire");
+        Lire res = new Lire( new Idf(analyseIDF()));
+        analyseTerminal(";");
         return res;
     }
 
@@ -253,13 +261,10 @@ public class AnalyseurSyntaxique {
             analyseTerminal("(");
             Expression res = analyseExpression();
             analyseTerminal(")");
-            //return new OpposeeEntier(res);
-            return res;
+            return new OpposeeEntier(res);
         } else if (uniteCourante.equals("non")){ // non EXPRESSION
             analyseTerminal("non");
-
-            //return new NonBooleen(analyseExpression());
-            return analyseExpression();
+            return new NonBooleen(analyseExpression());
         } else if (uniteCourante.equals("(")){ //( EXPRESSION )
             analyseTerminal("(");
             Expression res = analyseExpression();

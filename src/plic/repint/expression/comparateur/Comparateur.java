@@ -21,10 +21,17 @@ public abstract class Comparateur extends Expression {
 
     @Override
     public void verifier() throws ErreurSemantique {
-        if (!operande1.getType().equals("entier")) throw new ErreurSemantique("operande 1 ne peut pas faire parti d'une comparaison, n'est pas de type entier ("+ operande1+')');
-        if (!operande2.getType().equals("entier")) throw new ErreurSemantique("operande 2 ne peut pas faire parti d'une comparaison, n'est pas de type entier ("+ operande2+')');
+        if (!operande1.getType().equals("entier")) throw new ErreurSemantique("operande 1 ne peut pas faire parti d'une comparaison, n'est pas de type entier ("+ operande1+')' + operande1.getType());
+        if (!operande2.getType().equals("entier")) throw new ErreurSemantique("operande 2 ne peut pas faire parti d'une comparaison, n'est pas de type entier ("+ operande2+')' + operande2.getType());
         operande1.verifier();
         operande2.verifier();
     }
 
+    @Override
+    public String toString() {
+        return "Comparateur{" +
+                "operande1=" + operande1 +
+                ", operande2=" + operande2 +
+                '}';
+    }
 }
