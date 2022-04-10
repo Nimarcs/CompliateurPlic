@@ -1,0 +1,5 @@
+// début du programme
+// erreur typo sur 'enter' et non 'entier'
+programme plic {
+    entier entier ;
+}

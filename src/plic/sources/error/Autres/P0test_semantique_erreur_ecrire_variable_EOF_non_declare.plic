@@ -1,0 +1,6 @@
+
+programme plic {
+
+    ecrire EOF ;
+
+}

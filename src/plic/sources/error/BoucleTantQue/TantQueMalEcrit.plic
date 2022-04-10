@@ -1,0 +1,9 @@
+programme plic {
+    entier x ;
+    entier y ;
+    x := 5 ;
+    y := 6 ;
+    tantquhezbt ( x > 2 ) repeter {
+        ecrire ( x ) ;
+    }
+}

@@ -1,0 +1,6 @@
+programme plic {
+    tantque ( x = 5 ) repeter {
+        ecrire ( x ) ;
+        x := x - 5 ;
+    }
+}

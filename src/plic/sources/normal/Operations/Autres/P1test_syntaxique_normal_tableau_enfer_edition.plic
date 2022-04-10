@@ -1,0 +1,6 @@
+programme plic {
+    entier k ; tableau [ 5 ] t ;
+    t [ 4 ] := 4 ;
+    t [ t [ t [ t [ t [ t [ 4 ] ] ] ] ] ] := t [ t [ t [ t [ t [ t [ 4 ] ] ] ] ] ] ;
+    ecrire t [ t [ t [ t [ t [ t [ 4 ] ] ] ] ] ]  ;
+}

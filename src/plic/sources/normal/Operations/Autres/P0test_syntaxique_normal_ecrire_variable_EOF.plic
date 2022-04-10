@@ -1,0 +1,8 @@
+// début du programme
+programme plic {
+
+    entier EOF ;
+
+    ecrire EOF ;
+
+}

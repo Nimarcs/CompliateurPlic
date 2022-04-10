@@ -1,0 +1,5 @@
+programme plic {
+    pour i dans 1 .. 5 repeter {
+        ecrire ( i ) ;
+    }
+}

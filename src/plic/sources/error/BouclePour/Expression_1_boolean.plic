@@ -1,0 +1,10 @@
+programme plic {
+    entier x ;
+    entier y ;
+    entier i ;
+    x := 5 ;
+    y := 6 ;
+    pour i dans ( x  = 5 ) .. 3 {
+        ecrire ( x ) ;
+    }
+}

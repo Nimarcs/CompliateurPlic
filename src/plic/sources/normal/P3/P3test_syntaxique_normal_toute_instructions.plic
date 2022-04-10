@@ -1,0 +1,21 @@
+programme plic {
+    entier x ; entier i ;
+    ecrire 5 + 8 ;
+    ecrire 5 ;
+    lire x ;
+    si ( ( x > 3 ) et ( non x = 4 ) ) alors {
+        ecrire ( x + i ) ;
+    }
+    si ( ( x > 3 ) et ( 5 # x ) ) alors {
+        ecrire ( 500 ) ;
+    } sinon {
+        ecrire ( 500 + 5 ) ;
+    }
+    tantque ( x = 5 ) repeter {
+        ecrire ( x ) ;
+        x := x - 5 ;
+    }
+    pour i dans 1 .. 5 repeter {
+        ecrire ( i ) ;
+    }
+}

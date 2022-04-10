@@ -1,0 +1,10 @@
+programme plic {
+    entier i ; tableau [ 5 ] tab ;
+    tab [ 0 ] := 2 ;
+    tab [ 1 ] := 4 ;
+    tab [ 2 ] := 8 ;
+    tab [ 3 ] := 12 ;
+    tab [ 4 ] := 16 ;
+    i := tab [ 1 ] ;
+    tab [ i ] := i ;
+}

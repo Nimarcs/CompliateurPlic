@@ -1,0 +1,12 @@
+// Expected : 6
+programme plic {
+    entier x ;
+    entier y ;
+    x := 5 ;
+    y := 6 ;
+    si ( x = 4 ) alors {
+        ecrire ( x ) ;
+    } sinon {
+        ecrire ( x + 1 ) ;
+    }
+}

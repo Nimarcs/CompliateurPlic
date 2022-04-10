@@ -1,0 +1,18 @@
+// début du programme
+programme plic {
+    entier i ;
+
+    entier j ;
+
+    entier
+
+    k ;
+
+    k := 1 ;
+
+
+    ecrire k ;
+
+
+
+}

@@ -1,0 +1,10 @@
+// Expected : 525128
+programme plic {
+    entier x ; entier y ; entier z ;
+    x := 5 ;
+    y := x * x ;
+    z := ( y * x ) + 3 ;
+    ecrire ( x ) ;
+    ecrire ( y ) ;
+    ecrire ( z ) ;
+}

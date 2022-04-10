@@ -1,0 +1,4 @@
+// Expected : 10
+programme plic {
+    ecrire ( ( 8 = 8 ) = 8 ) ;
+}

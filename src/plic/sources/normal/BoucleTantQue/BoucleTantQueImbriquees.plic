@@ -1,0 +1,18 @@
+// Expected : 000111222
+programme plic {
+    entier x ;
+    entier i ;
+    entier j ;
+    x := 0 ;
+    i := 2 ;
+    j := 2 ;
+    tantque ( i >= 0 ) repeter {
+        tantque ( j >= 0 ) repeter {
+            ecrire ( x ) ;
+            j := j - 1 ;
+        }
+        x := x + 1 ;
+        i := i - 1 ;
+        j := 2 ;
+    }
+}

@@ -1,0 +1,11 @@
+// Expected : 10001110
+programme plic {
+    ecrire ( non ( 1 # 1 ) et non ( 2 # 2 ) ) ; // non 0 et non 0
+    ecrire ( non ( 1 = 1 ) et non ( 2 = 2 ) ) ; // non 1 et non 1
+    ecrire ( non ( 1 # 1 ) et non ( 2 = 2 ) ) ; // non 0 et non 1
+    ecrire ( non ( 1 = 1 ) et non ( 2 # 2 ) ) ; // non 1 et non 0
+    ecrire ( non ( 1 # 1 ) ou non ( 2 # 2 ) ) ; // non 0 ou non 0
+    ecrire ( non ( 1 # 1 ) ou non ( 2 = 2 ) ) ; // non 0 ou non 1
+    ecrire ( non ( 1 # 1 ) ou non ( 2 # 2 ) ) ; // non 0 ou non 0
+    ecrire ( non ( 1 = 1 ) ou non ( 2 = 2 ) ) ; // non 1 ou non 1
+}

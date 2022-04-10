@@ -1,0 +1,7 @@
+programme plic {
+    si ( ( x > 3 ) = 5 ) alors {
+        ecrire ( 500 ) ;
+    } sinon {
+        ecrire ( 500 + 5 ) ;
+    }
+}

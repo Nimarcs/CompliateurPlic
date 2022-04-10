@@ -1,0 +1,5 @@
+programme plic {
+    entier i ; tableau [ 5 ] tab ;
+    //erreur 5 trop grand
+    tab [ 5 ] := 5 ;
+}

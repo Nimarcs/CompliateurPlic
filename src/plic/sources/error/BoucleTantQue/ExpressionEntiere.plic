@@ -1,0 +1,8 @@
+programme plic {
+    entier x ;
+    entier y ;
+    x := 5 ;
+    y := 6 ;
+    tantque ( x ) repeter {
+    }
+}
